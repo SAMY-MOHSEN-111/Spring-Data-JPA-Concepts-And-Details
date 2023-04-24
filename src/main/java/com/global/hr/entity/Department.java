@@ -1,5 +1,6 @@
 package com.global.hr.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
@@ -17,16 +18,11 @@ public class Department {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "department")
-    private List<Employee> employees;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "department")
+//    private List<Employee> employees;
 
     public Department() {
-    }
-
-    public Department(Long id, String name, List<Employee> employees) {
-        this.id = id;
-        this.name = name;
-        this.employees = employees;
     }
 
     public Long getId() {
@@ -45,11 +41,11 @@ public class Department {
         this.name = name;
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
+//    public List<Employee> getEmployees() {
+//        return employees;
+//    }
+//
+//    public void setEmployees(List<Employee> employees) {
+//        this.employees = employees;
+//    }
 }

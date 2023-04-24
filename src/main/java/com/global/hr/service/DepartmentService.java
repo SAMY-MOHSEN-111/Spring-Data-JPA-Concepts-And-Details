@@ -26,6 +26,11 @@ public class DepartmentService {
         // save will check if the id is present(not null) if so it will update else insert
     }
 
+//    public List<Department> save(List<Department> departments) {
+//        return departmentRepository.saveAll(departments);
+//        // save will check if the id is present(not null) if so it will update else insert
+//    }
+
     public Department update(Department department) {
         Optional<Department> optionalDepartment = departmentRepository.findById(department.getId());
         if(optionalDepartment.isEmpty())throw new RuntimeException("Department not found");

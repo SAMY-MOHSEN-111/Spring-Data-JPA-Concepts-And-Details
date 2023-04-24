@@ -1,6 +1,7 @@
 package com.global.hr.controller;
 
 import com.global.hr.entity.Employee;
+import com.global.hr.entity.EmployeeResponse;
 import com.global.hr.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +19,24 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    Employee findById(@PathVariable("id") long id) {
-        return employeeService.findById(id);
+    public EmployeeResponse findById(@PathVariable("id") long id) {
+        // I think this logic should be but in service layer
+        Employee employee = employeeService.findById(id);
+        System.out.println(employee);//delete
+
+        EmployeeResponse employeeResponse = new EmployeeResponse();
+
+        employeeResponse.setId(employee.getId());
+        employeeResponse.setName(employee.getName());
+        employeeResponse.setDepartment(employee.getDepartment());
+        employeeResponse.setAccount(employee.getAccount());
+        return employeeResponse;
     }
+
+//    @GetMapping("/{id}")
+//    Employee findById(@PathVariable("id") long id) {
+//        return employeeService.findById(id);
+//    }
 
     @GetMapping("/filter")
     public List<Employee> filter(@RequestParam("name") String name) {
