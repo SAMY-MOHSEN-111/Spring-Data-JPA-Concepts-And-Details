@@ -20,3 +20,8 @@
 ## 19. GenerationType.IDENTITY
 ## 20. GenerationType.SEQUENCE
 ## 21. GenerationType.TABLE
+## 22. Entity Life Cycle (new,managed,detached,removed)
+## 23. JPA Cascading Operations (persist,merge,remove,detach,refresh,all)*
+## ... cascade = CascadeType.All
+## 24. JPA Fetch Type (lazy,eager)
+## ... fetch = FetchType.EAGER
