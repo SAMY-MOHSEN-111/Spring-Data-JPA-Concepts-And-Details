@@ -1,9 +1,7 @@
 package com.global.hr.service;
 
 import com.global.hr.entity.Account;
-import com.global.hr.entity.Department;
 import com.global.hr.entity.Employee;
-import com.global.hr.repository.DepartmentRepository;
 import com.global.hr.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +14,7 @@ public class EmployeeService {
     private EmployeeRepository employeeRepository;
     private DepartmentService departmentService;
     private AccountService accountService;
+    private RoleService roleService;
 
     @Autowired
     public void wireEmployeeRepository(EmployeeRepository employeeRepository) {
@@ -32,13 +31,35 @@ public class EmployeeService {
         this.accountService = accountService;
     }
 
+    @Autowired
+    public void wireRoleService(RoleService roleService) {
+        this.roleService = roleService;
+    }
+
+
+    public List<Employee> findBySalary(Double salary) {
+        return employeeRepository.findBySalary(salary);
+    }
+
     public Employee findById(long id) {
         // could be handled better than that XD
         return employeeRepository.findById(id).orElse(null);
     }
 
-    public List<Employee> filter(String name) {
-        return employeeRepository.filter(name);
+    public List<Employee> findByEmpAndDept(String empName, String deptName) {
+        return employeeRepository.findByNameContainingAndDepartmentNameContaining(empName, deptName);
+    }
+
+    public Long countByEmpAndDept(String empName, String deptName) {
+        return employeeRepository.countByNameContainingAndDepartmentNameContaining(empName, deptName);
+    }
+
+    public Long deleteByEmpAndDept(String empName, String deptName) {
+        return employeeRepository.deleteByNameContainingAndDepartmentNameContaining(empName, deptName);
+    }
+
+    public List<Employee> filter(String name, Double salary) {
+        return employeeRepository.filter(name, salary);
 //        return employeeRepository.filterNative(name);
     }
 
@@ -49,7 +70,7 @@ public class EmployeeService {
         }
 
         // assign employee to an existing account
-        if(employee.getAccount() != null && employee.getAccount().getId() != null){
+        if (employee.getAccount() != null && employee.getAccount().getId() != null) {
             Account dbAccount = accountService.findById(employee.getAccount().getId());
             dbAccount.setRoles(employee.getAccount().getRoles());
             employee.setAccount(dbAccount);
@@ -70,9 +91,16 @@ public class EmployeeService {
         if (optionalEmployee.isEmpty()) throw new RuntimeException("Employee not found");
 
         Employee dbEmployee = optionalEmployee.get();
+
         dbEmployee.setName(employee.getName());
         dbEmployee.setSalary(employee.getSalary());
         dbEmployee.setDepartment(employee.getDepartment());
+
+        Account dbAccount = dbEmployee.getAccount();
+
+        dbAccount.setRoles(employee.getAccount().getRoles());// this is not working for some reason
+        dbEmployee.setAccount(dbAccount);
+
         return employeeRepository.save(dbEmployee);
         // save will check if the id is present(not null) if so it will update else insert
         // but retrieving that object from db then updating the desired fields only is preferable
@@ -80,7 +108,7 @@ public class EmployeeService {
 
     public List<Employee> findByDepartmentId(Long id) {
 //        return employeeRepository.findByDepartmentId(id);
-        return employeeRepository.findByDepartment(id);
+        return employeeRepository.findByDepartmentId(id);
     }
 
     public List<Employee> findAll() {

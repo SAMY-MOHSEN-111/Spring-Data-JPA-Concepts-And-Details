@@ -1,10 +1,32 @@
 package com.global.hr.entity;
 
 import jakarta.persistence.*;
-import org.springframework.stereotype.Component;
 
 @Entity
-@Component
+@NamedQuery(
+        name = "Employee.findBySalary",
+        query = "select employee from Employee employee where employee.salary >= :salary"
+)/* I don't think this is a good place to write queries, I prefer to write them in Repository instead.
+    This is matter of single responsibility*/
+
+//@SqlResultSetMapping(
+//        name = "employeeMapping",
+//        entities = @EntityResult(
+//                entityClass = Employee.class,
+//                fields = {
+//                        @FieldResult(name = "id",column = "id"),
+//                        @FieldResult(name = "name",column = "name"),
+//                        @FieldResult(name = "salary",column = "salary"),
+//
+//                }
+//        )
+//)
+//@NamedNativeQuery(
+//        name = "findByDepartmentId",
+//        query = "select id,name,salary from `hr-global`.employee where employee.account_id = :id",
+//        resultSetMapping = "employeeMapping"
+//)
+
 @Table(name = "employee")
 public class Employee {
 
@@ -29,14 +51,14 @@ public class Employee {
 
     // many employee have one department
     //@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @ManyToOne(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id", referencedColumnName = "id")
     //the desired name for the foreign key and the referenced column
     //@JsonIgnore// without this annotation it will go on recursive calling for employee and department!
     private Department department;
 
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
 

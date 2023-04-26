@@ -40,13 +40,13 @@ public class Startup implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         //create roles
-        Role admin = new Role();
-        admin.setName("Admin");
+//        Role admin = new Role();
+//        admin.setName("Admin");
+//
+//        Role user = new Role();
+//        user.setName("User");
 
-        Role user = new Role();
-        user.setName("User");
-
-        roleService.save(List.of(admin, user));
+//        roleService.save(List.of(admin, user));
 
         // create Accounts
 //        Account adminAccount = new Account();

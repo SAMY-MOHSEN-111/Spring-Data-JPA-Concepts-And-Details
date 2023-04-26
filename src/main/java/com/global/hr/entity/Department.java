@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Entity
-@Component
 @Table(name = "department")
 public class Department {
 

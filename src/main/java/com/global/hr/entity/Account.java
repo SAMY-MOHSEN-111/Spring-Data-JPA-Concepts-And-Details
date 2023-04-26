@@ -1,6 +1,5 @@
 package com.global.hr.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -21,7 +20,7 @@ public class Account {
 //    @OneToOne(mappedBy = "account")
 //    @JsonIgnore
 //    private Employee employee;
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.REFRESH},fetch = FetchType.LAZY)
     @JoinTable(
             name = "account_role",
             joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
