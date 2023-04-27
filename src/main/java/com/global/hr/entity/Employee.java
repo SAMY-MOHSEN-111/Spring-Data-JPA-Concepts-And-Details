@@ -1,5 +1,6 @@
 package com.global.hr.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
 @Entity
@@ -28,6 +29,7 @@ import jakarta.persistence.*;
 //)
 
 @Table(name = "employee")
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Employee {
 
     @Id
@@ -65,12 +67,12 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(Long id, String name, Double salary, Department department, Account account) {
+    public Employee(Long id, String name, Double salary/*, Department department, Account account*/) {
         this.id = id;
         this.name = name;
         this.salary = salary;
-        this.department = department;
-        this.account = account;
+//        this.department = department;
+//        this.account = account;
     }
 
     public Long getId() {

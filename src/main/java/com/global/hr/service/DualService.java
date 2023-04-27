@@ -1,7 +1,7 @@
 package com.global.hr.service;
 
 import com.global.hr.repository.DualRepository;
-import com.global.hr.repository.HRStatisticsProjection;
+import com.global.hr.projection.HRStatisticsProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

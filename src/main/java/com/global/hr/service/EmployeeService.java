@@ -1,5 +1,6 @@
 package com.global.hr.service;
 
+import com.global.hr.dto.EmployeeDTO;
 import com.global.hr.entity.Account;
 import com.global.hr.entity.Employee;
 import com.global.hr.repository.EmployeeRepository;
@@ -37,7 +38,7 @@ public class EmployeeService {
     }
 
 
-    public List<Employee> findBySalary(Double salary) {
+    public List<EmployeeDTO> findBySalary(Double salary) {
         return employeeRepository.findBySalary(salary);
     }
 
@@ -106,7 +107,7 @@ public class EmployeeService {
         // but retrieving that object from db then updating the desired fields only is preferable
     }
 
-    public List<Employee> findByDepartmentId(Long id) {
+    public List<EmployeeDTO> findByDepartmentId(Long id) {
 //        return employeeRepository.findByDepartmentId(id);
         return employeeRepository.findByDepartmentId(id);
     }

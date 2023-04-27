@@ -1,5 +1,6 @@
 package com.global.hr.repository;
 
+import com.global.hr.dto.EmployeeDTO;
 import com.global.hr.entity.Employee;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,9 +13,11 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    List<Employee> findByDepartmentId(Long id);
+    @Query(value = "select new com.global.hr.dto.EmployeeDTO(employee.id,employee.name,employee.salary,employee.department.id,employee.department.name) from #{#entityName} employee where employee.department.id = :id")
+    List<EmployeeDTO> findByDepartmentId(@Param("id") Long id);
 
-    List<Employee> findBySalary(Double salary);
+    @Query(value = "select new com.global.hr.dto.EmployeeDTO(employee.id,employee.name,employee.salary,employee.department.id,employee.department.name) from #{#entityName} employee where employee.salary>= :salary")
+    List<EmployeeDTO> findBySalary(Double salary);
 
     List<Employee> findByName(String name);
 
@@ -33,8 +36,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     //Native SQL query
     //Database dependent
-    @Query(value = "select * from `hr-global`.employee where employee.name like concat('%',:name,'%')", nativeQuery = true)
-    List<Employee> filterNative(String name);
+//    @Query(value = "select * from `hr-global`.employee where employee.name like concat('%',:name,'%')", nativeQuery = true)
+//    List<Employee> filterNative(String name);
 
 //    List<Employee> findByDepartmentId(Long id);
     // note that we sent it the dept ID and wrote it like that findBy`DepartmentId`

@@ -1,6 +1,7 @@
 package com.global.hr.service;
 
 import com.global.hr.entity.Actor;
+import com.global.hr.dto.ActorDTO;
 import com.global.hr.repository.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,11 +45,17 @@ public class ActorService {
         return actorRepository.findAll(Sort.by(orders));
     }
 
-    public Page<Actor> myImplementedFindAll(Integer pageNumber, Integer pageSize) {
+//    public Page<ActorProjection> myImplementedFindAll(Integer pageNumber, Integer pageSize) { // interface projection
+//        pageNumber = isNull(pageNumber) ? 0 : pageNumber;
+//        pageSize = isNull(pageSize) ? (int) actorRepository.count() : pageSize;
+//        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+//        return actorRepository.myImplementedFindAll(pageable);
+//    }
+
+    public Page<ActorDTO> myImplementedFindAll(Integer pageNumber, Integer pageSize) { // constructor projection
         pageNumber = isNull(pageNumber) ? 0 : pageNumber;
         pageSize = isNull(pageSize) ? (int) actorRepository.count() : pageSize;
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return actorRepository.myImplementedFindAll(pageable);
     }
-
 }

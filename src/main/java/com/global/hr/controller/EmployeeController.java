@@ -1,5 +1,6 @@
 package com.global.hr.controller;
 
+import com.global.hr.dto.EmployeeDTO;
 import com.global.hr.entity.Employee;
 import com.global.hr.entity.EmployeeResponse;
 import com.global.hr.service.EmployeeService;
@@ -80,7 +81,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/department/{id}")
-    public List<Employee> findByDepartmentId(@PathVariable("id") Long id) {
+    public List<EmployeeDTO> findByDepartmentId(@PathVariable("id") Long id) {
         return employeeService.findByDepartmentId(id);
     }
 

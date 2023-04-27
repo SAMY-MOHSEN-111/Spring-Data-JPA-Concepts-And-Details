@@ -44,4 +44,8 @@ public class RoleService {
     public List<Role> findAll(){
         return roleRepository.findAll();
     }
+
+    public Optional<Role> findByName(String role) {
+        return roleRepository.findByName(role);
+    }
 }
