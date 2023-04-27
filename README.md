@@ -25,3 +25,15 @@
 ## ... cascade = CascadeType.All
 ## 24. JPA Fetch Type (lazy,eager)
 ## ... fetch = FetchType.EAGER
+## 25. @Modifying
+## 26. @Transactional
+## 27. Entity State-Detection Stratigies(version/id,persistable,entity information)
+## 28. Query Lookup / Derived Queries
+## 29. Named(Native) Queries (@NamedQuery/@NamedNativeQuery)
+## 30. Declared Queries(@Query)
+## 31. Interface Projection
+## 32. Sorting & Pagination
+## 33. Sort.by(direction,colName)
+## 34. Pageable page = PageRequest.of(pageNum,PageSize,Sort)
+## 35. JpaSort.unsafe("Expression");
+## 36. SpEL Expressions (#{#entityName})
